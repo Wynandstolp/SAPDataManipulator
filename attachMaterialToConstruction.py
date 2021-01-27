@@ -7,8 +7,8 @@ def print_time(description):
     print(description + datetime.now().strftime("%H:%M:%S"))
 
 
-read_path = "Tests/MujaList_2.xlsx"
-write_path = "Tests/MujaList_2_material_linked_v2.xlsx"
+read_path = "Tests/Excel Files/MujaList_2.xlsx"
+write_path = "Tests/Excel Files/MujaList_2_material_linked_v2.xlsx"
 
 print_time("finished imports: ")
 df = pd.read_excel(read_path, sheet_name="CT BOM")
@@ -37,11 +37,11 @@ for row in range(3, 56944):  # 56944
     try:
         constructType = list_dict[ws['E{}'.format(row)].value]
         if constructType != None:
-            column_min = 42
-            column_max = len(constructType) + 42
-            for column in range(column_min, column_max):
+            column_start = 42
+            column_max = len(constructType) + column_start
+            for column in range(column_start, column_max):
                 ws.cell(
-                    row=row, column=column).value = constructType[column - column_min]
+                    row=row, column=column).value = constructType[column - column_start]
         else:
             ws[result_cell] = ""
             break
